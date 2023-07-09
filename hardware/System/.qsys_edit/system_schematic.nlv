@@ -1,0 +1,34 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst system.NIOS2.clock_bridge -pg 1
+preplace inst system.DEBUG -pg 1 -lvl 3 -y 230
+preplace inst system.SWITCHES -pg 1 -lvl 3 -y 610
+preplace inst system.NIOS2.cpu -pg 1
+preplace inst system.TIMER -pg 1 -lvl 3 -y 410
+preplace inst system.NIOS2.reset_bridge -pg 1
+preplace inst system.LOWER_3_SEG -pg 1 -lvl 3 -y 510
+preplace inst system.SRAM -pg 1 -lvl 3 -y 330
+preplace inst system.hexcode_interface_0 -pg 1 -lvl 3 -y 30
+preplace inst system.NIOS2 -pg 1 -lvl 2 -y 360
+preplace inst system.UPPER_3_SEG -pg 1 -lvl 3 -y 710
+preplace inst system.LEDRS -pg 1 -lvl 3 -y 810
+preplace inst system -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst system.clk_0 -pg 1 -lvl 1 -y 380
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)hexcode_interface_0.conduit_end_2,(SLAVE)system.hex2) 1 0 3 NJ 100 NJ 100 NJ
+preplace netloc FAN_OUT<net_container>system</net_container>(MASTER)NIOS2.irq,(SLAVE)TIMER.irq,(SLAVE)DEBUG.irq) 1 2 1 690
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.switches,(SLAVE)SWITCHES.external_connection) 1 0 3 NJ 640 NJ 640 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.hex5,(SLAVE)hexcode_interface_0.conduit_end_5) 1 0 3 NJ 160 NJ 160 NJ
+preplace netloc FAN_OUT<net_container>system</net_container>(SLAVE)SWITCHES.clk,(SLAVE)hexcode_interface_0.clock_sink,(SLAVE)UPPER_3_SEG.clk,(SLAVE)DEBUG.clk,(SLAVE)LEDRS.clk,(MASTER)clk_0.clk,(SLAVE)TIMER.clk,(SLAVE)NIOS2.clk,(SLAVE)LOWER_3_SEG.clk,(SLAVE)SRAM.clk1) 1 1 2 290 760 730
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.upperseg,(SLAVE)UPPER_3_SEG.external_connection) 1 0 3 NJ 740 NJ 740 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.leds,(SLAVE)LEDRS.external_connection) 1 0 3 NJ 840 NJ 840 NJ
+preplace netloc INTERCONNECT<net_container>system</net_container>(SLAVE)DEBUG.reset,(SLAVE)hexcode_interface_0.reset_sink,(SLAVE)SWITCHES.reset,(SLAVE)LOWER_3_SEG.reset,(MASTER)NIOS2.debug_reset_request,(SLAVE)LEDRS.reset,(SLAVE)UPPER_3_SEG.reset,(MASTER)clk_0.clk_reset,(SLAVE)NIOS2.reset,(SLAVE)TIMER.reset,(SLAVE)SRAM.reset1) 1 1 2 270 860 710
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.hex3,(SLAVE)hexcode_interface_0.conduit_end_3) 1 0 3 NJ 120 NJ 120 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.hex4,(SLAVE)hexcode_interface_0.conduit_end_4) 1 0 3 NJ 140 NJ 140 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)clk_0.clk_in,(SLAVE)system.clk) 1 0 1 NJ
+preplace netloc INTERCONNECT<net_container>system</net_container>(SLAVE)DEBUG.avalon_jtag_slave,(SLAVE)SWITCHES.s1,(MASTER)NIOS2.instruction_master,(MASTER)NIOS2.data_master,(SLAVE)UPPER_3_SEG.s1,(SLAVE)LOWER_3_SEG.s1,(SLAVE)hexcode_interface_0.slave,(SLAVE)NIOS2.debug_mem_slave,(SLAVE)SRAM.s1,(SLAVE)TIMER.s1,(SLAVE)LEDRS.s1) 1 1 2 310 880 670
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)LOWER_3_SEG.external_connection,(SLAVE)system.lowerseg) 1 0 3 NJ 540 NJ 540 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.hex0,(SLAVE)hexcode_interface_0.conduit_end) 1 0 3 NJ 60 NJ 60 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.hex1,(SLAVE)hexcode_interface_0.conduit_end_1) 1 0 3 NJ 80 NJ 80 NJ
+levelinfo -pg 1 0 60 930
+levelinfo -hier system 70 100 430 770 920

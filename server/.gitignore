@@ -1,0 +1,7 @@
+node_modules/
+.env
+package-lock.json
+src/firebaseConfig.js
+src/samples/
+databaseFiller.json
+src/predict.jpg

@@ -1,0 +1,962 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "ClosetGenie",
+      "description": "ClosetGenie API"
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "components": {
+		"schemas": {
+			"ClothingResponse": {
+				"properties": {
+					"clothes":{
+						"type": "array",
+						"maxItems": 10,
+						"items": {
+							"type": "object",
+							"properties": {
+								"isFavourite": {
+									"type": "boolean"
+								},
+								"colour": {
+									"type": "string"
+								},
+								"type": {
+									"type": "string"
+								},
+								"timesOfWear": {
+									"type": "integer"
+								},
+								"lastTimeWorn": {
+									"type": "string",
+									"format": "date"
+								},
+								"inLaundry": {
+									"type": "boolean"
+								},
+								"id": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			},
+			"PostClothingResponse": {
+				"properties": {
+					"clothes":{
+						"type": "array",
+						"maxItems": 10,
+						"items": {
+							"type": "object",
+							"properties": {
+								"isFavourite": {
+									"type": "boolean"
+								},
+								"colour": {
+									"type": "string"
+								},
+								"type": {
+									"type": "string"
+								},
+								"timesOfWear": {
+									"type": "integer"
+								},
+								"lastTimeWorn": {
+									"type": "string",
+									"format": "date"
+								},
+								"inLaundry": {
+									"type": "boolean"
+								},
+								"id": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"user": {
+						"type": "string"
+					}
+				}
+			},
+			"PostClothingRequest": {
+				"properties": {
+					"clothes":{
+						"type": "array",
+						"maxItems": 10,
+						"items": {
+							"type": "object",
+							"properties": {
+								"isFavourite": {
+									"type": "boolean"
+								},
+								"colour": {
+									"type": "string"
+								},
+								"type": {
+									"type": "string"
+								},
+								"timesOfWear": {
+									"type": "integer"
+								},
+								"lastTimeWorn": {
+									"type": "string",
+									"format": "date"
+								},
+								"inLaundry": {
+									"type": "boolean"
+								}
+							}
+						}
+					},
+					"user": {
+						"type": "string"
+					}
+				}
+			},
+			"PatchClothingResponse": {
+				"properties": {
+					"clothes":{
+						"type": "array",
+						"maxItems": 10,
+						"items": {
+							"type": "object",
+							"properties": {
+								"isFavourite": {
+									"type": "boolean"
+								},
+								"colour": {
+									"type": "string"
+								},
+								"type": {
+									"type": "string"
+								},
+								"timesOfWear": {
+									"type": "integer"
+								},
+								"lastTimeWorn": {
+									"type": "string",
+									"format": "date"
+								},
+								"inLaundry": {
+									"type": "boolean"
+								},
+								"id": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"user": {
+						"type": "string"
+					},
+					"clothingId": {
+						"type": "string"
+					}
+				}
+			},
+			"PatchClothingRequest": {
+				"properties": {
+					"clothing":{
+						"type": "object",
+						"maxItems": 10,
+						"items": {
+							"type": "object",
+							"properties": {
+								"isFavourite": {
+									"type": "boolean"
+								},
+								"colour": {
+									"type": "string"
+								},
+								"type": {
+									"type": "string"
+								},
+								"timesOfWear": {
+									"type": "integer"
+								},
+								"lastTimeWorn": {
+									"type": "string",
+									"format": "date"
+								},
+								"inLaundry": {
+									"type": "boolean"
+								}
+							}
+						}
+					},
+					"user": {
+						"type": "string"
+					},
+					"clothingId": {
+						"type": "string"
+					}
+				}
+			},
+			"PostLaundryRequest": {
+				"properties": {
+					"clothingId": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					}
+				}
+			},
+			"PostUserResponse": {
+				"properties": {
+					"id": {
+						"type": "string"
+					}
+				}
+			},
+			"GetAllUsersTemperatureResponse": {
+				"properties": {
+					"temperature": {
+						"type": "string"
+					}
+				}
+			},
+			"PatchTemperatureRequest": {
+				"properties": {
+					"temperature": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					}
+				}
+			},
+			"StylesReponse": {
+				"properties": {
+					"styles":{
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"PostStyleRequest": {
+				"properties": {
+					"style": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	},
+	"paths": {
+		"/clothing": {
+			"get": {
+				"summary": "Get all clothes",
+				"operationId": "GetAllClothes",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClothingResponse"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Clothing"
+                ],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"user id",
+						"required": true
+					}
+				]
+			},
+			"post": {
+				"summary": "Add new clothes",
+				"operationId": "PostClothes",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PostClothingRequest"
+							},
+							"example": {
+								"clothes": [
+									{
+										"isFavourite": true,
+										"colour": "red",
+										"type": "shirt",
+										"timesOfWear": 0,
+										"lastTimeWorn": "2020-03-01",
+										"inLaundry": false
+									}
+								],
+								"user": "123"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClothingResponse"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Clothing"
+                ],
+				"security": []
+			},
+			"patch": {
+				"summary": "Update current clothes",
+				"operationId": "PatchClothing",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PatchClothingRequest"
+							},
+							"example": {
+								"clothing": {
+										"isFavourite": true,
+										"colour": "red",
+										"type": "shirt",
+										"timesOfWear": 0,
+										"lastTimeWorn": "2020-03-01",
+										"inLaundry": false
+								},
+								"user": "123",
+								"clothingId": "134525"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/text": {
+								"schema": {
+									"type": "string",
+									"example": "Clothing updated"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Clothing"
+                ],
+				"security": []
+			}
+		},
+		"/clothing/type/{type}": {
+			"get": {
+				"summary": "Get all clothes matching type",
+				"operationId": "GetClothesByType",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClothingResponse"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Clothing"
+                ],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"user id",
+						"required": true
+					},
+					{
+						"in":"params",
+						"name":"type",
+						"description":"type of clothing",
+						"required": true
+					}
+				]
+			}
+		},
+		"/clothing/colour/{colour}": {
+			"get": {
+				"operationId": "GetClothesByColour",
+				"summary": "Get all clothes matching colour",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClothingResponse"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Clothing"
+                ],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"user id",
+						"required": true
+					},
+					{
+						"in":"params",
+						"name":"colour",
+						"description":"colour of clothing",
+						"required": true
+					}
+				]
+			}
+		},
+		"/clothing/type/{type}/colour/{colour}": {
+			"get": {
+				"summary": "Get all clothes matching type and colour",
+				"operationId": "GetClothesByTypeAndColour",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClothingResponse"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Clothing"
+                ],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"user id",
+						"required": true
+					},
+					{
+						"in":"params",
+						"name":"type",
+						"description":"type of clothing",
+						"required": true
+					},
+					{
+						"in":"params",
+						"name":"colour",
+						"description":"colour of clothing",
+						"required": true
+					}
+				]
+			}
+		},
+		"/clothing/favourites": {
+			"get": {
+				"summary": "Get all favourite clothes",
+				"operationId": "GetFavouriteClothes",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClothingResponse"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Clothing"
+                ],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"user id",
+						"required": true
+					}
+				]
+			}
+		},
+		"/clothing/{clothingId}": {
+			"delete": {
+				"summary": "Delete a specific clothing",
+				"operationId": "DeleteClothing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/text": {
+								"schema": {
+									"type": "string",
+									"example": "Clothing Deleted"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Clothing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"user id",
+						"required": true
+					},
+					{
+						"in":"params",
+						"name":"clothingId",
+						"description":"id of clothing",
+						"required": true
+					}
+				]
+			}
+		},
+		"/laundry": {
+			"get": {
+				"summary": "Get all clothes from Laundry",
+				"operationId": "GetAllLaundry",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClothingResponse"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Laundry"
+                ],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"user id",
+						"required": true
+					}
+				]
+			},
+			"post": {
+				"summary": "Add new clothes to laundry",
+				"operationId": "PostLaundry",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PostLaundryRequest"
+							},
+							"example": {
+								"clothingId": "123",
+								"user": "123"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/text": {
+								"schema": {
+									"type": "string",
+									"example": "Added to Laundry Basket"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Laundry"
+                ],
+				"security": []
+			},
+			"delete": {
+				"summary": "Clear Laundry Basket",
+				"operationId": "DeleteAllLaundry",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/text": {
+								"schema": {
+									"type": "string",
+									"example": "Deleted all laundry"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Laundry"
+                ],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"user id",
+						"required": true
+					}
+				]
+			}
+		},
+		"/laundry/{clothingId}": {
+			"delete": {
+				"summary": "Delete a specific clothing from laundry",
+				"operationId": "DeleteLaundryItem",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/text": {
+								"schema": {
+									"type": "string",
+									"example": "Deleted laundry item"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Laundry"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"user id",
+						"required": true
+					},
+					{
+						"in":"params",
+						"name":"clothingId",
+						"description":"id of clothing",
+						"required": true
+					}
+				]
+			}
+		},
+		"/user": {
+			"post": {
+				"summary": "Add new user",
+				"operationId": "AddUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PostUserResponse"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "User"
+                ],
+				"security": []
+			}
+		},
+		"/user/{userId}": {
+			"delete": {
+				"summary": "Delete a specific user",
+				"operationId": "DeleteUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/text": {
+								"schema": {
+									"type": "string",
+									"example": "User has been deleted"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in":"params",
+						"name":"userId",
+						"description":"id of user",
+						"required": true
+					}
+				]
+			}
+		},
+		"/user/temperature": {
+			"get": {
+				"summary": "Get user's temperature",
+				"operationId": "GetTemperature",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetAllUsersTemperatureResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"id of user",
+						"required": true
+					}
+				]
+			}, 
+			"patch": {
+				"summary": "Change temperature",
+				"operationId": "ChangeTemperature",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PatchTemperatureRequest"
+							},
+							"example": {
+								"temperature": "12",
+								"user": "123"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/text": {
+								"schema": {
+									"type": "string",
+									"example": "Temperature has been updated"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "User"
+                ],
+				"security": []
+			}
+		},
+		"/user/styles": {
+			"get": {
+				"summary": "Get all style preferences",
+				"operationId": "GetStylePreferences",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StylesReponse"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "User"
+                ],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"user id",
+						"required": true
+					}
+				]
+			},
+			"post": {
+				"summary": "Add new style preferences",
+				"operationId": "AddStylePreference",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PostStyleRequest"
+							},
+							"example": {
+								"style": "formal",
+								"user": "123"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/text": {
+								"schema": {
+									"type": "string",
+									"example": "Style has been added"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "User"
+                ],
+				"security": []
+			}
+		},
+		"/outfit": {
+			"get": {
+				"summary": "Get all style preferences",
+				"operationId": "GetStylePreferences",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StylesReponse"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Outfit"
+                ],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"user id",
+						"required": true
+					}
+				]
+			},
+			"post": {
+				"summary": "Add new style preferences",
+				"operationId": "AddStylePreference",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PostStyleRequest"
+							},
+							"example": {
+								"style": "formal",
+								"user": "123"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/text": {
+								"schema": {
+									"type": "string",
+									"example": "Style has been added"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Outfit"
+                ],
+				"security": []
+			}
+		},
+		"/outfit/multiple": {
+			"get": {
+				"summary": "Get all style preferences",
+				"operationId": "GetStylePreferences",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StylesReponse"
+								}
+							}
+						}
+					}
+				},
+                "tags": [
+                    "Outfit"
+                ],
+				"security": [],
+				"parameters": [
+					{
+						"in":"query",
+						"name":"user",
+						"description":"user id",
+						"required": true
+					}
+				]
+			}
+		}
+	}
+}
+
+  

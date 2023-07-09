@@ -1,0 +1,11 @@
+	component system is
+		port (
+			clk_clk       : in  std_logic := 'X'; -- clk
+			gps_uart_rxd  : in  std_logic := 'X'; -- rxd
+			gps_uart_txd  : out std_logic;        -- txd
+			reset_reset_n : in  std_logic := 'X'; -- reset_n
+			wifi_uart_rxd : in  std_logic := 'X'; -- rxd
+			wifi_uart_txd : out std_logic         -- txd
+		);
+	end component system;
+
